@@ -1,3 +1,4 @@
+var jsonObj = getUrlParameters();
 var config = {
     type: Phaser.AUTO,
     width: 800,
@@ -195,10 +196,29 @@ function update ()
     //     movingPlatform.setVelocityX(50);
     // }
 }
+
 function collectPresent (player, present)
 {
     if(present.name === "FAKE"){
         activateInvisOnPlatforms(platformsInvis);
+        sendWebHookMessage("FAKE present collected by "+jsonObj.name+" ...");
+    }
+    else{
+        sendWebHookMessage("Present collected by "+jsonObj.name+" ...");
     }
     present.disableBody(true, true);
+}
+function sendWebHookMessage(message){
+    var request = new XMLHttpRequest();
+      request.open("POST", "https://discord.com/api/webhooks/1055986802227433582/G6ZlCOZIaXG9m5qGUTk7hac7lFyrpco9Qn2L-vaxS0pnXjGqauyh_8db37Cd5DUplq3Y");
+
+      request.setRequestHeader('Content-type', 'application/json');
+
+      var params = {
+        username: "Christmaspresent2022",
+        avatar_url: "",
+        content: message
+      }
+
+      request.send(JSON.stringify(params));
 }
