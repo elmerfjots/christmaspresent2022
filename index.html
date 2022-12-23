@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <script src="phaser.min.js"></script>
+    <script src="util.js"></script>
+    <script src="main.js"></script>
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+        
+        /* Create two equal columns that floats next to each other */
+        .column1 {
+          float: left;
+          width: 50%;
+          
+          
+        }
+        
+        /* Clear floats after the columns */
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+        </style>
+</head>
+<body>
+    
+    <div class="row">
+        <div class="column" style="background-color:#aaa;">
+            <div id="phaser-canvas">
+               
+            </div>
+        </div>
+        <div class="column" style="background-color:#bbb;">
+          <div id="tutorial"></div>
+        </div>
+      </div>
+</body>
+</html>
