@@ -210,7 +210,7 @@ function collectPresent (player, present)
 }
 function sendWebHookMessage(message){
     var request = new XMLHttpRequest();
-      request.open("POST", "https://discord.com/api/webhooks/1055986802227433582/G6ZlCOZIaXG9m5qGUTk7hac7lFyrpco9Qn2L-vaxS0pnXjGqauyh_8db37Cd5DUplq3Y");
+      request.open("POST", "${{ secrets.DISCORD_WEBHOOK_URL}}");
 
       request.setRequestHeader('Content-type', 'application/json');
 
