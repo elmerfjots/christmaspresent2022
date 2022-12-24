@@ -3,7 +3,7 @@ var config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    parent: 'phaser-example',
+    parent: 'phaser-canvas',
     physics: {
         default: 'arcade',
         arcade: {
@@ -31,7 +31,7 @@ var rightWasReleased = false;
 var game = new Phaser.Game(config);
 var runSpeed = 250;
 var jumpSpeed = 650;
-
+var overlay;
 function preload ()
 {
     this.load.image('sky', 'assets/sky.png');
@@ -45,12 +45,13 @@ function preload ()
     
 }
 function render(){
-    game.debug.text( "This is debug text", 0, 380 );
+    
 }
 function create ()
 {
     this.add.image(400, 300, 'sky');
-
+   overlay = document.querySelector('.tutorial')
+   
     platforms = this.physics.add.staticGroup();
     platformsInvis = this.physics.add.staticGroup();
 
@@ -201,24 +202,12 @@ function collectPresent (player, present)
 {
     if(present.name === "FAKE"){
         activateInvisOnPlatforms(platformsInvis);
-        sendWebHookMessage("FAKE present collected by "+jsonObj.name+" ...");
     }
     else{
-        sendWebHookMessage("Present collected by "+jsonObj.name+" ...");
+        writeToHtml("GLÆDELIG JUL! "+jsonObj.name+". Send : '"+jsonObj.code+"' til mig på discord :)");
     }
     present.disableBody(true, true);
 }
-function sendWebHookMessage(message){
-    var request = new XMLHttpRequest();
-      request.open("POST", "${{ secrets.DISCORD_WEBHOOK_URL}}");
-
-      request.setRequestHeader('Content-type', 'application/json');
-
-      var params = {
-        username: "Christmaspresent2022",
-        avatar_url: "",
-        content: message
-      }
-
-      request.send(JSON.stringify(params));
+function writeToHtml(message){
+    overlay.innerHTML = message;
 }
