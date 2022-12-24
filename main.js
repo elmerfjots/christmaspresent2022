@@ -114,6 +114,9 @@ function spawnCharacter(){
     player.x = 100;
     player.y = 450;
     inverted = false;
+    toggleInvisOnPlatforms(platformsInvis,true);
+    present.enableBody(true, 750,0,true,true);
+    presentFake.enableBody(true, 40,0,true,true);
 }
 function invertUpdate(){
     
@@ -140,9 +143,14 @@ function invertUpdate(){
         player.setVelocityY(-jumpSpeed);
     }
 }
-function activateInvisOnPlatforms(pInvis){
+function toggleInvisOnPlatforms(pInvis,show){
     pInvis.children.iterate(function (child) {
-        child.visible = false;
+        if(show === false){
+            child.visible = false;
+        }
+        else if(show === true){
+            child.visible = true;
+        }
      });
 }
 function update ()
@@ -166,10 +174,7 @@ function update ()
         }
         else if (cursors.right.isDown)
         {
-            // player.setVelocityX(160);
-    
-            // player.anims.play('right', true);
-            //inverted = true;
+            
         }
         else
         {
@@ -185,23 +190,14 @@ function update ()
     }
     if(player.y > 600 || player.x < -1 || player.x > 801){
         spawnCharacter();
+        
     }
-   
-
-    // if (movingPlatform.x >= 500)
-    // {
-    //     movingPlatform.setVelocityX(-50);
-    // }
-    // else if (movingPlatform.x <= 300)
-    // {
-    //     movingPlatform.setVelocityX(50);
-    // }
 }
 
 function collectPresent (player, present)
 {
     if(present.name === "FAKE"){
-        activateInvisOnPlatforms(platformsInvis);
+        toggleInvisOnPlatforms(platformsInvis,false);
     }
     else{
         writeToHtml("GLÆDELIG JUL! "+jsonObj.name+". Send : '"+jsonObj.code+"' til mig på discord :)");
